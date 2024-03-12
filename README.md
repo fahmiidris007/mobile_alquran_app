@@ -1,6 +1,6 @@
 # mobile_alquran_app
 
-A new Flutter project.
+Mobile AlQuran App.
 
 ## Getting Started
 
