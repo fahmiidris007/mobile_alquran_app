@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
+import 'package:mobile_alquran_app/features/alquran/home/home_screen.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({
@@ -18,7 +19,7 @@ class StartButton extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const Placeholder(),
+              builder: (context) => const HomeScreen(),
             ));
           },
           child: Container(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TextSplash extends StatelessWidget {
+class TextIntro extends StatelessWidget {
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
 
-  const TextSplash({
+  const TextIntro({
     super.key,
     required this.text,
     required this.fontSize,

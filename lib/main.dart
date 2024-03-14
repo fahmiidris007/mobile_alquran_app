@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_alquran_app/features/splashscreen/splash_screen.dart';
+import 'package:mobile_alquran_app/features/intro/intro_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Container(
         color: Colors.white,
-        child: const SplashScreen(),
+        child: const IntroScreen(),
       ),
     );
   }

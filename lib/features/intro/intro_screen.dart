@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'widgets/al_quran_image.dart';
 import 'widgets/start_button.dart';
-import 'widgets/text_splash.dart';
+import 'widgets/text_intro.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class IntroScreen extends StatelessWidget {
+  const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextSplash(
+                TextIntro(
                   text: "AlQuran App",
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
                 SizedBox(
                   height: 16,
                 ),
-                TextSplash(
+                TextIntro(
                   text: "Let's Recite and Practice\nthe Holy AlQuran.",
                   fontSize: 28,
                   fontWeight: FontWeight.normal,
