@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 
+import '../../../intro/bloc/intro_bloc.dart';
 import 'last_read.dart';
 
-class Greet extends StatelessWidget {
+class Greet extends StatefulWidget {
   const Greet({super.key});
 
   @override
+  State<Greet> createState() => _GreetState();
+}
+
+class _GreetState extends State<Greet> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Padding(
+    final _introBloc = BlocProvider.of<IntroBloc>(context);
+    debugPrint('State Name: ${_introBloc.name}');
+    return Padding(
       padding: EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +39,7 @@ class Greet extends StatelessWidget {
             height: 4,
           ),
           BuildText(
-            text: 'Fahmi Idris',
+            text: _introBloc.name,
             fontSize: 24,
             color: AppColors.text,
             fontWeight: FontWeight.w600,
