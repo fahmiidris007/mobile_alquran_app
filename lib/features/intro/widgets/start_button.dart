@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/features/alquran/detail/widgets/build_text.dart';
 import 'package:mobile_alquran_app/features/alquran/home/home_screen.dart';
@@ -21,7 +20,7 @@ class _StartButtonState extends State<StartButton> {
 
   @override
   Widget build(BuildContext context) {
-    final _introBloc = BlocProvider.of<IntroBloc>(context);
+    final introBloc = BlocProvider.of<IntroBloc>(context);
     return Positioned(
       left: 0,
       bottom: -23,
@@ -29,16 +28,20 @@ class _StartButtonState extends State<StartButton> {
       child: Center(
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: ()  async {
+          onTap: () async {
             final name = await showDialog<String>(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('Enter Your Name', textAlign: TextAlign.center, style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primary,
-                  ),),
+                  title: const Text(
+                    'Enter Your Name',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
                   content: Form(
                     key: _formKey,
                     child: TextFormField(
@@ -68,7 +71,7 @@ class _StartButtonState extends State<StartButton> {
               },
             );
             if (name != null && name.isNotEmpty) {
-              _introBloc.add(InputUsername(name));
+              introBloc.add(InputUsername(name));
               debugPrint('Input Name: $name');
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const HomeScreen(),

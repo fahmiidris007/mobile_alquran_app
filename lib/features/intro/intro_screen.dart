@@ -26,6 +26,9 @@ class IntroScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 30,
+                  ),
                   BuildText(
                     text: "AlQuran App",
                     fontSize: 28,

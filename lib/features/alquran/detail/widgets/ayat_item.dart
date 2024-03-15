@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
-import 'package:mobile_alquran_app/data/models/ayat.dart';
+import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 
 class AyatItem extends StatelessWidget {
@@ -62,7 +62,7 @@ class AyatItem extends StatelessWidget {
             height: 24,
           ),
           BuildText(
-            text: ayat.ar,
+            text: ayat.ar!,
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class AyatItem extends StatelessWidget {
             height: 16,
           ),
           BuildText(
-            text: ayat.idn,
+            text: ayat.idn!,
             fontSize: 16,
             color: AppColors.text,
             fontWeight: FontWeight.w500,

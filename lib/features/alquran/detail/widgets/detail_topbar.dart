@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mobile_alquran_app/data/models/surah.dart';
+import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 
 class DetailSurah extends StatelessWidget {
   const DetailSurah({super.key, required this.surah});
 
-  final Surah surah;
+  final SurahDetail surah;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class DetailSurah extends StatelessWidget {
           child: Column(
             children: [
               BuildText(
-                text: surah.nama,
+                text: surah.nama!,
                 fontSize: 26,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -71,7 +71,7 @@ class DetailSurah extends StatelessWidget {
                 height: 4,
               ),
               BuildText(
-                text: surah.arti,
+                text: surah.arti!,
                 fontSize: 16,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -85,7 +85,7 @@ class DetailSurah extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BuildText(
-                    text: surah.tempatTurun.name,
+                    text: surah.tempatTurun!,
                     fontSize: 16,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
