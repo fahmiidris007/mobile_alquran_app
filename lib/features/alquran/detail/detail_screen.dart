@@ -1,39 +1,59 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
-import 'package:mobile_alquran_app/data/models/surah.dart';
+import 'package:mobile_alquran_app/data/models/surah_detail.dart';
+import 'package:mobile_alquran_app/features/alquran/detail/bloc/detail_surah_bloc.dart';
 
 import 'widgets/build_app_bar.dart';
 import 'widgets/build_body.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final int noSurat;
   const DetailScreen({super.key, required this.noSurat});
 
-  Future<Surah> _getDetailSurah() async {
-    var data = await Dio().get("https://equran.id/api/surat/$noSurat");
-    return Surah.fromJson(json.decode(data.toString()));
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<DetailSurahBloc>().add(FetchDetailSurah(widget.noSurat));
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Surah>(
-        future: _getDetailSurah(),
-        initialData: null,
-        builder: ((context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Scaffold(
-              backgroundColor: AppColors.background,
-            );
-          }
-          Surah surah = snapshot.data!;
+    return BlocBuilder<DetailSurahBloc, DetailSurahState>(
+      builder: (context, state) {
+        if (state is DetailSurahLoading) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state is DetailSurahError) {
+          return Scaffold(
+            body: Center(
+              child: Text(
+                state.message,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          );
+        } else if (state is DetailSurahLoaded) {
+          final SurahDetail surah = state.surahDetail;
           return Scaffold(
             backgroundColor: AppColors.background,
             appBar: BuildAppBar(surah: surah),
             body: BuildBody(surah: surah),
           );
-        }));
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
   }
 }

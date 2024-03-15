@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_alquran_app/data/models/surah.dart';
+import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 
 import 'ayat_item.dart';
 import 'detail_topbar.dart';
@@ -10,7 +10,7 @@ class BuildBody extends StatelessWidget {
     required this.surah,
   });
 
-  final Surah surah;
+  final SurahDetail surah;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class BuildBody extends StatelessWidget {
           itemBuilder: (context, index) => AyatItem(
             ayat: surah.ayat!.elementAt(index + (surah.nomor == 1 ? 1 : 0)),
           ),
-          itemCount: surah.jumlahAyat + (surah.nomor == 1 ? -1 : 0),
+          itemCount: surah.jumlahAyat! + (surah.nomor == 1 ? -1 : 0),
           separatorBuilder: (context, index) => Container(),
         ),
       ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
-import 'package:mobile_alquran_app/data/models/surah.dart';
+import 'package:mobile_alquran_app/data/models/surah_list.dart';
 import 'package:mobile_alquran_app/features/alquran/detail/detail_screen.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 
 class SurahItem extends StatelessWidget {
   const SurahItem({required this.context, required this.surah, super.key});
 
-  final Surah surah;
+  final SurahList surah;
   final BuildContext context;
 
   @override
@@ -18,7 +18,7 @@ class SurahItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => DetailScreen(
-                  noSurat: surah.nomor,
+                  noSurat: surah.nomor!,
                 )));
       },
       child: Padding(
@@ -50,7 +50,7 @@ class SurahItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BuildText(
-                  text: surah.namaLatin,
+                  text: surah.namaLatin!,
                   fontSize: 16,
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
@@ -61,7 +61,7 @@ class SurahItem extends StatelessWidget {
                 Row(
                   children: [
                     BuildText(
-                      text: surah.tempatTurun.name,
+                      text: surah.tempatTurun!.name,
                       fontSize: 12,
                       color: AppColors.text,
                       fontWeight: FontWeight.w500,
@@ -90,7 +90,7 @@ class SurahItem extends StatelessWidget {
               ],
             )),
             BuildText(
-              text: surah.nama,
+              text: surah.nama!,
               fontSize: 20,
               color: AppColors.primary,
               fontWeight: FontWeight.bold,
