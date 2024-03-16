@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
@@ -15,6 +14,8 @@ class AyatItem extends StatefulWidget {
 }
 
 class _AyatItemState extends State<AyatItem> {
+  bool isStarred = false;
+
   @override
   void initState() {
     super.initState();
@@ -24,13 +25,13 @@ class _AyatItemState extends State<AyatItem> {
   Future<void> _saveToPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('lastReadSurah', widget.ayat.surah!);
-    await prefs.setInt('lastReadAyat', 1); // Selalu simpan Ayat 1 jika ikon bintang tidak diklik
+    await prefs.setInt('lastReadAyat', 1);
   }
 
   Future<void> _saveToPrefsOnStarClick() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('lastReadSurah', widget.ayat.surah!);
-    await prefs.setInt('lastReadAyat', widget.ayat.nomor!); // Simpan ayat terakhir yang dibaca jika ikon bintang diklik
+    await prefs.setInt('lastReadAyat', widget.ayat.nomor!);
   }
 
   @override
@@ -65,11 +66,24 @@ class _AyatItemState extends State<AyatItem> {
                 GestureDetector(
                   onTap: () async {
                     await _saveToPrefsOnStarClick();
+                    setState(() {
+                      isStarred = !isStarred;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Center(child: Text('Marked as Last Read')),
+                      ),
+                    );
                   },
-                  child: Icon(
-                    Icons.star_border_outlined,
-                    color: Colors.white,
-                  ),
+                  child: isStarred
+                      ? const Icon(
+                          Icons.star,
+                          color: Colors.white,
+                        )
+                      : const Icon(
+                          Icons.star_border_outlined,
+                          color: Colors.white,
+                        ),
                 ),
               ],
             ),
