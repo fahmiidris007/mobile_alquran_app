@@ -1,12 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AyatItem extends StatelessWidget {
   const AyatItem({super.key, required this.ayat});
 
   final Ayat ayat;
+
+  Future<void> _saveToPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('lastReadSurah', ayat.surah!);
+    await prefs.setInt('lastReadAyat', ayat.nomor!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +45,15 @@ class AyatItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                // const Icon(
-                //   Icons.share_outlined,
-                //   color: Colors.white,
-                // ),
-                // const SizedBox(
-                //   width: 16,
-                // ),
-                const Icon(
-                  Icons.play_arrow_outlined,
-                  color: Colors.white,
+                GestureDetector(
+                  onTap: () async {
+                    await _saveToPrefs();
+                  },
+                  child: Icon(
+                    Icons.star_border_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-                // const SizedBox(
-                //   width: 16,
-                // ),
-                // const Icon(
-                //   Icons.bookmark_outline,
-                //   color: Colors.white,
-                // ),
               ],
             ),
           ),
