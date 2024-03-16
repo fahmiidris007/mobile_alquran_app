@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/detail/bloc/detail_surah_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widgets/build_app_bar.dart';
 import 'widgets/build_body.dart';
@@ -22,6 +23,11 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
 
     context.read<DetailSurahBloc>().add(FetchDetailSurah(widget.noSurat));
+  }
+
+  Future<void> _saveSurahDetailToPrefs(SurahDetail surahDetail) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lastReadSurahLatin', surahDetail.namaLatin!);
   }
 
   @override
@@ -45,6 +51,7 @@ class _DetailScreenState extends State<DetailScreen> {
           );
         } else if (state is DetailSurahLoaded) {
           final SurahDetail surah = state.surahDetail;
+          _saveSurahDetailToPrefs(surah);
           return Scaffold(
             backgroundColor: AppColors.background,
             appBar: BuildAppBar(surah: surah),

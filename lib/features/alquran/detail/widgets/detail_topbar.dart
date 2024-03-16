@@ -81,8 +81,18 @@ class _DetailSurahState extends State<DetailSurah> {
 
               if (isBookmarked) {
                 context.read<BookmarkBloc>().add(RemoveBookmark(widget.surah.nomor!));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Center(child: Text('Surah removed from bookmark')),
+                  ),
+                );
               } else {
                 context.read<BookmarkBloc>().add(AddBookmark(bookmark));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Center(child: Text('Surah added to bookmark')),
+                  ),
+                );
               }
 
               setState(() {
