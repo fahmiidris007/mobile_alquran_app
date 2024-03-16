@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/data/models/surah_bookmark.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper{
+class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
   static late Database _database;
 
-  DatabaseHelper._internal(){
+  DatabaseHelper._internal() {
     _databaseHelper = this;
   }
 
@@ -51,14 +50,13 @@ class DatabaseHelper{
 
   Future<List<SurahBookmark>> getSurah() async {
     final db = await database;
-    List<Map<String, dynamic>> results = await db.query(_tableName, orderBy: 'nomor ASC');
-    debugPrint('results: $results');
+    List<Map<String, dynamic>> results =
+        await db.query(_tableName, orderBy: 'nomor ASC');
     return results.map((res) => SurahBookmark.fromJson(res)).toList();
   }
 
   Future<void> deleteSurah(int nomor) async {
     final db = await database;
-    debugPrint('||||| nomor: $nomor |||||');
     await db.delete(
       _tableName,
       where: 'nomor = ?',

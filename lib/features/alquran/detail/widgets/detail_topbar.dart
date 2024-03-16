@@ -78,20 +78,13 @@ class _DetailSurahState extends State<DetailSurah> {
                 deskripsi: widget.surah.deskripsi,
                 audio: widget.surah.audio,
               );
-              // Check if the surah is already bookmarked
-              // var isSurahBookmarked = context.read<BookmarkBloc>().isBookmarked;
 
               if (isBookmarked) {
-                debugPrint('Remove Bookmark');
-                // If the surah is already bookmarked, remove it
                 context.read<BookmarkBloc>().add(RemoveBookmark(widget.surah.nomor!));
               } else {
-                debugPrint('Add Bookmark');
-                // If the surah is not bookmarked, add it
                 context.read<BookmarkBloc>().add(AddBookmark(bookmark));
               }
 
-              // Update the bookmark icon
               setState(() {
                 isBookmarked = !isBookmarked;
               });
