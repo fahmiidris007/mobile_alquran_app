@@ -5,15 +5,32 @@ import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AyatItem extends StatelessWidget {
+class AyatItem extends StatefulWidget {
   const AyatItem({super.key, required this.ayat});
 
   final Ayat ayat;
 
+  @override
+  State<AyatItem> createState() => _AyatItemState();
+}
+
+class _AyatItemState extends State<AyatItem> {
+  @override
+  void initState() {
+    super.initState();
+    _saveToPrefs();
+  }
+
   Future<void> _saveToPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('lastReadSurah', ayat.surah!);
-    await prefs.setInt('lastReadAyat', ayat.nomor!);
+    await prefs.setInt('lastReadSurah', widget.ayat.surah!);
+    await prefs.setInt('lastReadAyat', 1); // Selalu simpan Ayat 1 jika ikon bintang tidak diklik
+  }
+
+  Future<void> _saveToPrefsOnStarClick() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('lastReadSurah', widget.ayat.surah!);
+    await prefs.setInt('lastReadAyat', widget.ayat.nomor!); // Simpan ayat terakhir yang dibaca jika ikon bintang diklik
   }
 
   @override
@@ -37,7 +54,7 @@ class AyatItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(27 / 2)),
                   child: Center(
                     child: BuildText(
-                      text: '${ayat.nomor}',
+                      text: '${widget.ayat.nomor}',
                       fontSize: 14,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -47,7 +64,7 @@ class AyatItem extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () async {
-                    await _saveToPrefs();
+                    await _saveToPrefsOnStarClick();
                   },
                   child: Icon(
                     Icons.star_border_outlined,
@@ -61,7 +78,7 @@ class AyatItem extends StatelessWidget {
             height: 24,
           ),
           BuildText(
-            text: ayat.ar!,
+            text: widget.ayat.ar!,
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -71,7 +88,7 @@ class AyatItem extends StatelessWidget {
             height: 16,
           ),
           BuildText(
-            text: ayat.idn!,
+            text: widget.ayat.idn!,
             fontSize: 16,
             color: AppColors.text,
             fontWeight: FontWeight.w500,

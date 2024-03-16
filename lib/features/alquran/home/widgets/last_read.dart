@@ -5,15 +5,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../detail/detail_screen.dart';
 
-class LastRead extends StatelessWidget {
+class LastRead extends StatefulWidget {
   const LastRead({super.key});
 
-  Future<Map<String, dynamic>> _getLastRead() async {
+  @override
+  State<LastRead> createState() => _LastReadState();
+}
+
+class _LastReadState extends State<LastRead> {
+  Stream<Map<String, dynamic>> _getLastRead() async* {
     final prefs = await SharedPreferences.getInstance();
-    final lastReadSurah = prefs.getInt('lastReadSurah') ?? 0;
-    final lastReadAyat = prefs.getInt('lastReadAyat') ?? 0;
-    final lastReadSurahLatin = prefs.getString('lastReadSurahLatin') ?? ''; // tambahkan baris ini
-    return {'surah': lastReadSurah, 'ayat': lastReadAyat, 'surahLatin': lastReadSurahLatin}; // ubah baris ini
+    while (true) {
+      final lastReadSurah = prefs.getInt('lastReadSurah') ?? 1;
+      final lastReadAyat = prefs.getInt('lastReadAyat') ?? 1;
+      final lastReadSurahLatin = prefs.getString('lastReadSurahLatin') ?? 'Al-Fatihah';
+      yield {'surah': lastReadSurah, 'ayat': lastReadAyat, 'surahLatin': lastReadSurahLatin};
+      await Future.delayed(Duration(seconds: 1));
+    }
   }
 
   void _goToDetail(BuildContext context, int surahNumber) {
@@ -29,12 +37,12 @@ class LastRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _getLastRead().then((lastRead) {
+        _getLastRead().first.then((lastRead) {
           _goToDetail(context, lastRead['surah']!);
         });
       },
-      child: FutureBuilder<Map<String, dynamic>>(
-        future: _getLastRead(),
+      child: StreamBuilder<Map<String, dynamic>>(
+        stream: _getLastRead(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
