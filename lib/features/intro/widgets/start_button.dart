@@ -72,7 +72,6 @@ class _StartButtonState extends State<StartButton> {
             );
             if (name != null && name.isNotEmpty) {
               introBloc.add(InputUsername(name));
-              debugPrint('Input Name: $name');
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const HomeScreen(),
               ));

@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobile_alquran_app/data/models/surah_bookmark.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
+import 'package:mobile_alquran_app/features/alquran/bookmark/bloc/bookmark_bloc.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
 
-class DetailSurah extends StatelessWidget {
+class DetailSurah extends StatefulWidget {
   const DetailSurah({super.key, required this.surah});
 
   final SurahDetail surah;
+
+  @override
+  State<DetailSurah> createState() => _DetailSurahState();
+}
+
+class _DetailSurahState extends State<DetailSurah> {
+  bool isBookmarked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final blocBookmark = context.read<BookmarkBloc>().state;
+    if (blocBookmark is BookmarkLoaded) {
+      final List<SurahBookmark> bookmarks = blocBookmark.bookmarks;
+      final isBookmarked = bookmarks.any((element) => element.nomor == widget.surah.nomor);
+      setState(() {
+        this.isBookmarked = isBookmarked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +63,36 @@ class DetailSurah extends StatelessWidget {
                   'assets/images/quran.svg',
                   width: 324 - 55,
                 ))),
-        const Positioned(
+        Positioned(
           top: 20,
           right: 20,
-          child: Icon(
-            Icons.bookmark_outline,
-            color: Colors.white,
+          child: GestureDetector(
+            onTap: () async {
+              SurahBookmark bookmark = SurahBookmark(
+                nomor: widget.surah.nomor,
+                nama: widget.surah.nama,
+                namaLatin: widget.surah.namaLatin,
+                jumlahAyat: widget.surah.jumlahAyat,
+                tempatTurun: tempatTurunValues.map[widget.surah.tempatTurun],
+                arti: widget.surah.arti,
+                deskripsi: widget.surah.deskripsi,
+                audio: widget.surah.audio,
+              );
+
+              if (isBookmarked) {
+                context.read<BookmarkBloc>().add(RemoveBookmark(widget.surah.nomor!));
+              } else {
+                context.read<BookmarkBloc>().add(AddBookmark(bookmark));
+              }
+
+              setState(() {
+                isBookmarked = !isBookmarked;
+              });
+            },
+            child: Icon(
+              isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+              color: Colors.white,
+            ),
           ),
         ),
         const Positioned(
@@ -62,7 +109,7 @@ class DetailSurah extends StatelessWidget {
           child: Column(
             children: [
               BuildText(
-                text: surah.nama!,
+                text: widget.surah.nama!,
                 fontSize: 26,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -71,7 +118,7 @@ class DetailSurah extends StatelessWidget {
                 height: 4,
               ),
               BuildText(
-                text: surah.arti!,
+                text: widget.surah.arti!,
                 fontSize: 16,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -85,7 +132,7 @@ class DetailSurah extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BuildText(
-                    text: surah.tempatTurun!,
+                    text: widget.surah.tempatTurun!,
                     fontSize: 16,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
@@ -104,7 +151,7 @@ class DetailSurah extends StatelessWidget {
                     width: 5,
                   ),
                   BuildText(
-                    text: surah.jumlahAyat.toString(),
+                    text: widget.surah.jumlahAyat.toString(),
                     fontSize: 16,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

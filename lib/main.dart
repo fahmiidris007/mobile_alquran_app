@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_alquran_app/features/alquran/bookmark/bloc/bookmark_bloc.dart';
 import 'package:mobile_alquran_app/features/alquran/detail/bloc/detail_surah_bloc.dart';
 import 'package:mobile_alquran_app/features/alquran/surah/bloc/list_surah_bloc.dart';
 import 'package:mobile_alquran_app/features/intro/bloc/intro_bloc.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => IntroBloc()),
         BlocProvider(create: (context) => ListSurahBloc()),
         BlocProvider(create: (context) => DetailSurahBloc()),
+        BlocProvider(create: (context) => BookmarkBloc()),
       ],
       child: MaterialApp(
         title: 'Mobile AlQuran App',
