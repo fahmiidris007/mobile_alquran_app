@@ -8,11 +8,12 @@ import '../../detail/detail_screen.dart';
 class LastRead extends StatelessWidget {
   const LastRead({super.key});
 
-  Future<Map<String, int>> _getLastRead() async {
+  Future<Map<String, dynamic>> _getLastRead() async {
     final prefs = await SharedPreferences.getInstance();
     final lastReadSurah = prefs.getInt('lastReadSurah') ?? 0;
     final lastReadAyat = prefs.getInt('lastReadAyat') ?? 0;
-    return {'surah': lastReadSurah, 'ayat': lastReadAyat};
+    final lastReadSurahLatin = prefs.getString('lastReadSurahLatin') ?? ''; // tambahkan baris ini
+    return {'surah': lastReadSurah, 'ayat': lastReadAyat, 'surahLatin': lastReadSurahLatin}; // ubah baris ini
   }
 
   void _goToDetail(BuildContext context, int surahNumber) {
@@ -32,7 +33,7 @@ class LastRead extends StatelessWidget {
           _goToDetail(context, lastRead['surah']!);
         });
       },
-      child: FutureBuilder<Map<String, int>>(
+      child: FutureBuilder<Map<String, dynamic>>(
         future: _getLastRead(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -86,7 +87,7 @@ class LastRead extends StatelessWidget {
                   height: 20,
                 ),
                 BuildText(
-                  text: 'Surah ${lastRead['surah']}',
+                  text: 'Surah ${lastRead['surahLatin']}',
                   fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
