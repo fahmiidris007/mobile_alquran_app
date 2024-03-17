@@ -18,13 +18,15 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: Row(children: [
         IconButton(
-            onPressed: (() => {}),
+            onPressed: (() => {
+                  Scaffold.of(context).openDrawer(),
+            }),
             icon: SvgPicture.asset('assets/images/menu-icon.svg')),
         const SizedBox(
           width: 24,
         ),
         const BuildText(
-            text: 'Quran App',
+            text: 'AlQuran App',
             fontSize: 20,
             color: Colors.white,
             fontWeight: FontWeight.bold),

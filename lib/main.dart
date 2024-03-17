@@ -6,13 +6,22 @@ import 'package:mobile_alquran_app/features/alquran/search/bloc/search_bloc.dart
 import 'package:mobile_alquran_app/features/alquran/surah/bloc/list_surah_bloc.dart';
 import 'package:mobile_alquran_app/features/intro/bloc/intro_bloc.dart';
 import 'package:mobile_alquran_app/features/intro/intro_screen.dart';
+import 'package:mobile_alquran_app/utils/shared_preferences_helper.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'features/alquran/home/home_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String? name = await SharedPreferencesHelper.getName();
+  runApp(MyApp(
+    initialRoute: name != null ? HomeScreen.routeName : IntroScreen.routeName,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+
+  const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +43,11 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           child: const IntroScreen(),
         ),
+        initialRoute: initialRoute,
+        routes: {
+          IntroScreen.routeName: (context) => const IntroScreen(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
+        },
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:mobile_alquran_app/features/alquran/detail/widgets/build_text.da
 import 'package:mobile_alquran_app/features/alquran/home/home_screen.dart';
 import 'package:mobile_alquran_app/features/intro/bloc/intro_bloc.dart';
 
+import '../../../utils/shared_preferences_helper.dart';
+
 class StartButton extends StatefulWidget {
   const StartButton({
     super.key,
@@ -72,6 +74,7 @@ class _StartButtonState extends State<StartButton> {
             );
             if (name != null && name.isNotEmpty) {
               introBloc.add(InputUsername(name));
+              SharedPreferencesHelper.setName(name);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const HomeScreen(),
               ));

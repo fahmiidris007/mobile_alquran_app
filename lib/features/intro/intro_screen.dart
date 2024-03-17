@@ -6,6 +6,8 @@ import 'widgets/start_button.dart';
 import 'widgets/build_text.dart';
 
 class IntroScreen extends StatelessWidget {
+  static const routeName = '/intro';
+
   const IntroScreen({super.key});
 
   @override

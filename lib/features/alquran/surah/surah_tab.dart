@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alquran_app/data/models/surah_list.dart';
 import 'package:mobile_alquran_app/features/alquran/surah/bloc/list_surah_bloc.dart';
+import 'package:mobile_alquran_app/features/alquran/surah/widgets/build_text.dart';
 
 import 'widgets/surah_item.dart';
 
@@ -27,10 +28,12 @@ class _SurahTabState extends State<SurahTab> {
         if (state is ListSurahLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ListSurahError) {
-          return Center(
-            child: Text(
-              state.message,
-              style: const TextStyle(color: Colors.red),
+          return const Center(
+            child: BuildText(
+              text: 'Please check your internet connection !',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
             ),
           );
         } else if (state is ListSurahLoaded) {
@@ -44,7 +47,13 @@ class _SurahTabState extends State<SurahTab> {
                   Divider(color: const Color(0xFF7B80AD).withOpacity(.35)),
               itemCount: surah.length);
         } else {
-          return const SizedBox.shrink();
+          return const Center(
+            child: BuildText(
+              text: 'No Data Found',
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),);
         }
       },
     );
