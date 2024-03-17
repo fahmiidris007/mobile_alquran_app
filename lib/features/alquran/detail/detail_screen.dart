@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/detail/bloc/detail_surah_bloc.dart';
+import 'package:mobile_alquran_app/features/alquran/detail/widgets/build_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widgets/build_app_bar.dart';
@@ -41,11 +42,14 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           );
         } else if (state is DetailSurahError) {
-          return Scaffold(
+          return const Scaffold(
+            backgroundColor: AppColors.background,
             body: Center(
-              child: Text(
-                state.message,
-                style: const TextStyle(color: Colors.red),
+              child: BuildText(
+                text: 'Please check your internet connection !',
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
               ),
             ),
           );
