@@ -36,6 +36,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   flutter_svg: ^2.0.10+1
   google_fonts: ^6.2.0
+  share: ^2.0.4
   shared_preferences: ^2.2.2
   sqflite: ^2.3.2
   url_launcher: ^6.2.5

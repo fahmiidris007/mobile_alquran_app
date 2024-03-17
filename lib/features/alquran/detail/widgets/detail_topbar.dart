@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +6,7 @@ import 'package:mobile_alquran_app/data/models/surah_bookmark.dart';
 import 'package:mobile_alquran_app/data/models/surah_detail.dart';
 import 'package:mobile_alquran_app/features/alquran/bookmark/bloc/bookmark_bloc.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
+import 'package:share/share.dart';
 
 class DetailSurah extends StatefulWidget {
   const DetailSurah({super.key, required this.surah});
@@ -108,12 +110,22 @@ class _DetailSurahState extends State<DetailSurah> {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 20,
           left: 20,
-          child: Icon(
-            Icons.share_outlined,
-            color: Colors.white,
+          child: GestureDetector(
+            onTap: () {
+              final RenderBox box = context.findRenderObject() as RenderBox;
+              Share.share(
+                  "Let's recite and practice this Surah ${widget.surah.namaLatin} ${widget.surah.nama} \n\nhttps://github.com/fahmiidris007/mobile_alquran_app",
+                  subject: 'Surah ${widget.surah.nama}',
+                  sharePositionOrigin:
+                      box.localToGlobal(Offset.zero) & box.size);
+            },
+            child: Icon(
+              Icons.share_outlined,
+              color: Colors.white,
+            ),
           ),
         ),
         Container(
