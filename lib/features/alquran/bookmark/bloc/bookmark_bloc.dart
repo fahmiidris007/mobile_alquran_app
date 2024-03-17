@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:mobile_alquran_app/data/datasource/local/database_repo.dart';
 import 'package:mobile_alquran_app/data/models/surah_bookmark.dart';
 
 part 'bookmark_event.dart';
+
 part 'bookmark_state.dart';
 
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
@@ -19,7 +19,8 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   final DatabaseHelper _databaseRepo = DatabaseHelper();
   bool isBookmarked = false;
 
-  Future<void> _onFetchBookmark(FetchBookmark event, Emitter<BookmarkState> emit) async {
+  Future<void> _onFetchBookmark(
+      FetchBookmark event, Emitter<BookmarkState> emit) async {
     emit(BookmarkLoading());
     try {
       final result = await _databaseRepo.getSurah();
@@ -29,7 +30,8 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     }
   }
 
-  Future<void> _onAddBookmark(AddBookmark event, Emitter<BookmarkState> emit) async {
+  Future<void> _onAddBookmark(
+      AddBookmark event, Emitter<BookmarkState> emit) async {
     emit(BookmarkLoading());
     try {
       await _databaseRepo.insertSurah(event.bookmark);
@@ -41,7 +43,8 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     }
   }
 
-  Future<void> _onRemoveBookmark(RemoveBookmark event, Emitter<BookmarkState> emit) async {
+  Future<void> _onRemoveBookmark(
+      RemoveBookmark event, Emitter<BookmarkState> emit) async {
     emit(BookmarkLoading());
     try {
       await _databaseRepo.deleteSurah(event.id);

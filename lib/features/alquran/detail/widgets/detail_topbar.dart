@@ -24,7 +24,8 @@ class _DetailSurahState extends State<DetailSurah> {
     final blocBookmark = context.read<BookmarkBloc>().state;
     if (blocBookmark is BookmarkLoaded) {
       final List<SurahBookmark> bookmarks = blocBookmark.bookmarks;
-      final isBookmarked = bookmarks.any((element) => element.nomor == widget.surah.nomor);
+      final isBookmarked =
+          bookmarks.any((element) => element.nomor == widget.surah.nomor);
       setState(() {
         this.isBookmarked = isBookmarked;
       });
@@ -80,7 +81,9 @@ class _DetailSurahState extends State<DetailSurah> {
               );
 
               if (isBookmarked) {
-                context.read<BookmarkBloc>().add(RemoveBookmark(widget.surah.nomor!));
+                context
+                    .read<BookmarkBloc>()
+                    .add(RemoveBookmark(widget.surah.nomor!));
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Center(child: Text('Surah removed from bookmark')),
