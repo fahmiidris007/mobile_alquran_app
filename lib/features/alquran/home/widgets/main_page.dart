@@ -6,8 +6,8 @@ import 'package:mobile_alquran_app/features/alquran/surah/surah_tab.dart';
 import 'build_tab.dart';
 import 'greet.dart';
 
-class BuildBody extends StatelessWidget {
-  const BuildBody({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {

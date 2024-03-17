@@ -22,34 +22,37 @@ class _GreetState extends State<Greet> {
 
   @override
   Widget build(BuildContext context) {
-    final _introBloc = BlocProvider.of<IntroBloc>(context);
-    debugPrint('State Name: ${_introBloc.name}');
-    return Padding(
-      padding: EdgeInsets.only(top: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BuildText(
-            text: 'Assalamualaikum',
-            fontSize: 18,
-            color: AppColors.text,
-            fontWeight: FontWeight.w500,
+    return BlocBuilder<IntroBloc, IntroState>(
+      builder: (context, state) {
+        String name = (state is InputUsernameState) ? state.name : '';
+        return Padding(
+          padding: EdgeInsets.only(top: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const BuildText(
+                text: 'Assalamualaikum',
+                fontSize: 18,
+                color: AppColors.text,
+                fontWeight: FontWeight.w500,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              BuildText(
+                text: name,
+                fontSize: 24,
+                color: AppColors.text,
+                fontWeight: FontWeight.w600,
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              LastRead()
+            ],
           ),
-          SizedBox(
-            height: 4,
-          ),
-          BuildText(
-            text: _introBloc.name,
-            fontSize: 24,
-            color: AppColors.text,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          LastRead()
-        ],
-      ),
+        );
+      },
     );
   }
 }
