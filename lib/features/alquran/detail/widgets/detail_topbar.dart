@@ -117,7 +117,7 @@ class _DetailSurahState extends State<DetailSurah> {
             onTap: () {
               final RenderBox box = context.findRenderObject() as RenderBox;
               Share.share(
-                  "Let's recite and practice this Surah ${widget.surah.namaLatin} ${widget.surah.nama} \n\nhttps://github.com/fahmiidris007/mobile_alquran_app",
+                  "Let's recite and practice this Surah ${widget.surah.namaLatin} ${widget.surah.nama} \n\nhttps://github.com/fahmiidris007/mobile_alquran_app/releases",
                   subject: 'Surah ${widget.surah.nama}',
                   sharePositionOrigin:
                       box.localToGlobal(Offset.zero) & box.size);
