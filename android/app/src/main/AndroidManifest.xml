@@ -2,7 +2,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="mobile_alquran_app"
+        android:label="Mobile AlQuran App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

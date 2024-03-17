@@ -41,7 +41,7 @@ class IntroScreen extends StatelessWidget {
                   ),
                   BuildText(
                     text: "Let's Recite and Practice\nthe Holy AlQuran.",
-                    fontSize: 28,
+                    fontSize: 18,
                     fontWeight: FontWeight.normal,
                   ),
                   SizedBox(

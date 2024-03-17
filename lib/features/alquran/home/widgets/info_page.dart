@@ -1,6 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_alquran_app/config/themes/AppColors.dart';
 import 'package:mobile_alquran_app/features/alquran/home/widgets/build_text.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'launch_url.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -14,7 +20,7 @@ class InfoPage extends StatelessWidget {
   }
 
   Center buildinfo() {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -36,15 +42,34 @@ class InfoPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          BuildText(
-            text: '(linkedin.com/in/fahmi-idris-87ba22259)',
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LaunchUrl(url: 'https://www.linkedin.com/in/fahmi-idris-87ba22259', icon: 'assets/images/linkedin.svg',),
+              SizedBox(
+                width: 20,
+              ),
+              LaunchUrl(url: 'https://github.com/fahmiidris007', icon: 'assets/images/github.svg',),
+              SizedBox(
+                width: 20,
+              ),
+              LaunchUrl(url: 'https://www.instagram.com/fahmiidris_007', icon: 'assets/images/instagram.svg',),
+              SizedBox(
+                width: 20,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await launchUrl(Uri.parse('https://fahmiidris007.github.io/my_profile/'));
+                },
+                child: SvgPicture.asset(
+                  'assets/images/website.svg',
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 24
-          ),
+          SizedBox(height: 24),
           BuildText(
             text: 'UI Design :',
             fontSize: 24,
@@ -63,15 +88,26 @@ class InfoPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          BuildText(
-            text: '(www.instagram.com/tanvir_ux)',
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LaunchUrl(url: 'https://www.instagram.com/tanvir_ux', icon: 'assets/images/instagram.svg',),
+              SizedBox(
+                width: 20,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await launchUrl(Uri.parse('https://tanvirux.contra.com/'));
+                },
+                child: SvgPicture.asset(
+                  'assets/images/website.svg',
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-              height: 24
-          ),
+          SizedBox(height: 24),
           BuildText(
             text: 'API Data Source :',
             fontSize: 24,
@@ -90,14 +126,20 @@ class InfoPage extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
-          BuildText(
-            text: '(https://equran.id/apidev/v2)',
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
+          GestureDetector(
+            onTap: () async {
+              await launchUrl(Uri.parse('https://equran.id/apidev/v2'));
+            },
+            child: SvgPicture.asset(
+              'assets/images/website.svg',
+              width: 40,
+              height: 40,
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+
