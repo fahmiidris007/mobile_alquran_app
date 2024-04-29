@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -122,7 +121,7 @@ class _DetailSurahState extends State<DetailSurah> {
                   sharePositionOrigin:
                       box.localToGlobal(Offset.zero) & box.size);
             },
-            child: Icon(
+            child: const Icon(
               Icons.share_outlined,
               color: Colors.white,
             ),

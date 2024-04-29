@@ -44,6 +44,7 @@ class _StartButtonState extends State<StartButton> {
                       color: AppColors.primary,
                     ),
                   ),
+                  backgroundColor: AppColors.background,
                   content: Form(
                     key: _formKey,
                     child: TextFormField(
@@ -54,8 +55,12 @@ class _StartButtonState extends State<StartButton> {
                         }
                         return null;
                       },
+                      style: const TextStyle(color: AppColors.text),
                       decoration: const InputDecoration(
                         hintText: 'Your Name',
+                        hintStyle: TextStyle(
+                          color: AppColors.text,
+                        ),
                       ),
                     ),
                   ),
